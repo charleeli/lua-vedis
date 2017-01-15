@@ -2,10 +2,10 @@ PLAT ?= linux
 SHARED := -fPIC --shared
 CFLAGS = -g -O2 -Wall
 
-all: vedis
+all: lvedis
 
-vedis : lua-vedis.c vedis.c
-	$(CC) $(CFLAGS) $(SHARED) $^ -o vedis.so
+lvedis : lua-vedis.c vedis.c
+	$(CC) $(CFLAGS) $(SHARED) $^ -o lvedis.so
 
 clean:
-	rm *.so
+	rm *.so *.vedis

@@ -453,7 +453,7 @@ static const luaL_Reg vedis_functions[] = {
     { NULL, NULL}
 };
 
-int luaopen_vedis(lua_State* L)
+int luaopen_lvedis(lua_State* L)
 {
     luaL_newlib(L, vedis_functions);
     return 1;

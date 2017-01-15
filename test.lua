@@ -1,4 +1,4 @@
-vedis = require 'vedis'
+lvedis = require 'lvedis'
 
 --打印table
 table.print = function(T, CR)
@@ -30,28 +30,28 @@ table.print = function(T, CR)
     print(_dump(T, "",""))
 end
 
-local vedisdb = vedis.open('test.vedis')
+local vedisdb = lvedis.open('test.vedis')
 
 --[[
-vedis.begin(vedisdb)
-vedis.store(vedisdb, 'foo', 'bar')
-vedis.commit(vedisdb)
+lvedis.begin(vedisdb)
+lvedis.store(vedisdb, 'foo', 'bar')
+lvedis.commit(vedisdb)
 
-local result = vedis.fetch(vedisdb, 'foo')
+local result = lvedis.fetch(vedisdb, 'foo')
 print(result)
 --]]
 
 --[[
-vedis.begin(vedisdb)
-vedis.exec(vedisdb, "SET foo1 bar1")
-vedis.commit(vedisdb)
+lvedis.begin(vedisdb)
+lvedis.exec(vedisdb, "SET foo1 bar1")
+lvedis.commit(vedisdb)
 
-local result = vedis.fetch(vedisdb, 'foo1')
+local result = lvedis.fetch(vedisdb, 'foo1')
 print(result)
 --]]
 
 --[[
-local result = vedis.exec_result_string(vedisdb, "GET foo10")
+local result = lvedis.exec_result_string(vedisdb, "GET foo10")
 if result == nil then
     print('nil')
 else
@@ -59,10 +59,21 @@ else
 end
 --]]
 
-vedis.exec(vedisdb, "MSET username james age 27 mail dude@example.com")
-local result = vedis.exec_result_array(vedisdb, "MGET username age mail")
+--[[
+lvedis.exec(vedisdb, "MSET username james age 27 mail dude@example.com")
+local result = lvedis.exec_result_array(vedisdb, "MGET username age mail")
 for i,v in ipairs(result) do
     print(v)
 end
 
 table.print(result)
+--]]
+
+vedis = require 'vedis'
+vedis.open("vds.vedis")
+local row = { id = 717066513, pid = "fdfadax", sdkid = 10000 }
+vedis.hmset('mytest', row)
+
+--table.print(vedis.halls('mytest'))
+
+table.print(vedis.hgetall('mytest'))
