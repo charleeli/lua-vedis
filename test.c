@@ -15,8 +15,8 @@ int main(int argc, char **argv) {
     char *cmd;
     int len;
 
-    len = vedisFormatCommand(&cmd,"SET %b bar" , "foo", 3);
-    printf("%s\n", cmd);
+    len = vedisFormatCommand(&cmd, "SET %b bar", "foo", 3);
+    printf("%d\r\n---\r\n%s\n", len, cmd);
 
     free(cmd);
     return 0;

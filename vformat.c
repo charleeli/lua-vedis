@@ -216,21 +216,20 @@ int vedisvFormatCommand(char **target, const char *format, va_list ap) {
     cmd = malloc(totlen+1);
     if (cmd == NULL) goto err;
 
-    //pos = sprintf(cmd,"*%d\r\n",argc);
+    pos = 0;
     for (j = 0; j < argc; j++) {
-        //pos += sprintf(cmd+pos,"$%zu\r\n",sdslen(curargv[j]));
         memcpy(cmd+pos,curargv[j],sdslen(curargv[j]));
         pos += sdslen(curargv[j]);
         sdsfree(curargv[j]);
         cmd[pos++] = '\r';
         cmd[pos++] = '\n';
     }
-    //assert(pos == totlen);
+
     cmd[pos] = '\0';
 
     free(curargv);
     *target = cmd;
-    return totlen;
+    return pos;
 
 err:
     while(argc--)
