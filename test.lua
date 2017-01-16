@@ -41,14 +41,13 @@ local result = lvedis.fetch(vedisdb, 'foo')
 print(result)
 --]]
 
---[[
+
 lvedis.begin(vedisdb)
-lvedis.exec(vedisdb, "SET foo1 bar1")
+lvedis.exec(vedisdb, "SET\r\n foo1 bar1\r\n")
 lvedis.commit(vedisdb)
 
 local result = lvedis.fetch(vedisdb, 'foo1')
 print(result)
---]]
 
 --[[
 local result = lvedis.exec_result_string(vedisdb, "GET foo10")
@@ -69,6 +68,7 @@ end
 table.print(result)
 --]]
 
+--[[
 vedis = require 'vedis'
 vedis.open("vds.vedis")
 local row = { id = 717066513, pid = "fdfadax", sdkid = 10000 }
@@ -77,3 +77,4 @@ vedis.hmset('mytest', row)
 --table.print(vedis.halls('mytest'))
 
 table.print(vedis.hgetall('mytest'))
+--]]
