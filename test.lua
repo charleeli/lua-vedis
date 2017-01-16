@@ -32,23 +32,23 @@ end
 
 local vedisdb = lvedis.open('test.vedis')
 
---[[
+
 lvedis.begin(vedisdb)
-lvedis.store(vedisdb, 'foo', 'bar')
+lvedis.store(vedisdb, 'foo 12348 78', '456  bar 7')
 lvedis.commit(vedisdb)
 
-local result = lvedis.fetch(vedisdb, 'foo')
+local result = lvedis.fetch(vedisdb, 'foo 12348 78')
 print(result)
---]]
 
 
+--[[
 lvedis.begin(vedisdb)
 lvedis.exec(vedisdb, "SET\r\n foo1 bar1\r\n")
 lvedis.commit(vedisdb)
 
 local result = lvedis.fetch(vedisdb, 'foo1')
 print(result)
-
+--]]
 --[[
 local result = lvedis.exec_result_string(vedisdb, "GET foo10")
 if result == nil then
@@ -71,10 +71,10 @@ table.print(result)
 --[[
 vedis = require 'vedis'
 vedis.open("vds.vedis")
-local row = { id = 717066513, pid = "fdfadax", sdkid = 10000 }
-vedis.hmset('mytest', row)
+local row = { id = 717066513, pid = "fd fadax", sdkid = nil }
+vedis.hmset('my 1test', row)
 
---table.print(vedis.halls('mytest'))
-
-table.print(vedis.hgetall('mytest'))
+table.print(vedis.halls('my 1test'))
 --]]
+--table.print(vedis.hgetall('my 1test'))
+
