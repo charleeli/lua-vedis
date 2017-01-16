@@ -1,4 +1,6 @@
 lvedis = require 'lvedis'
+vedis = require 'vedis'
+vedis.open("vds.vedis")
 
 --打印table
 table.print = function(T, CR)
@@ -32,14 +34,14 @@ end
 
 local vedisdb = lvedis.open('test.vedis')
 
-
+--[[
 lvedis.begin(vedisdb)
-lvedis.store(vedisdb, 'foo 12348 78', '456  bar 7')
+lvedis.store(vedisdb, 'foo 12348 88', '456  bar 88')
 lvedis.commit(vedisdb)
 
-local result = lvedis.fetch(vedisdb, 'foo 12348 78')
+local result = lvedis.fetch(vedisdb, 'foo 12348 88')
 print(result)
-
+--]]
 
 --[[
 lvedis.begin(vedisdb)
@@ -58,6 +60,10 @@ else
 end
 --]]
 
+vedis.set('foo 12348 88', 'ojk 999')
+local result = vedis.get('foo 12348 88')
+print(result)
+
 --[[
 lvedis.exec(vedisdb, "MSET username james age 27 mail dude@example.com")
 local result = lvedis.exec_result_array(vedisdb, "MGET username age mail")
@@ -69,12 +75,12 @@ table.print(result)
 --]]
 
 --[[
-vedis = require 'vedis'
-vedis.open("vds.vedis")
+
 local row = { id = 717066513, pid = "fd fadax", sdkid = nil }
 vedis.hmset('my 1test', row)
 
 table.print(vedis.halls('my 1test'))
---]]
+
 --table.print(vedis.hgetall('my 1test'))
+--]]
 

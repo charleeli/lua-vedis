@@ -9,14 +9,18 @@ function vedis.open(file)
     vedis.db = lvedis.open(file or 'test.vedis')
 end
 
+function vedis.close()
+    lvedis.close()
+end
+
 function vedis.set(key, value)
     lvedis.begin(vedis.db)
-	lvedis.store(vedis.db, key, value)
+	lvedis.store(vedis.db, base64.encode(key), base64.encode(value))
     lvedis.commit(vedis.db)
 end
 
 function vedis.get(key)
-    return lvedis.fetch(vedis.db, key)
+    return base64.decode(lvedis.fetch(vedis.db, base64.encode(key)))
 end
 
 function vedis.hmset(key, row)
